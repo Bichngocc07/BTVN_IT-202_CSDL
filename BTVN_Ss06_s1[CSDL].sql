@@ -1,16 +1,16 @@
-CREATE TABLE btvn_Ss5;
-USE btvn_Ss6b;
+CREATE TABLE btvn_Ss06;
+USE btvn_Ss06;
 SELECT 
     city, 
     SUM(total_price) AS revenue
 FROM 
     Bookings
 WHERE 
-    status = 'COMPLETED' -- Lọc những đơn đã hoàn thành trước khi gom nhóm
+    status = 'COMPLETED'
 GROUP BY 
     city
 HAVING 
-    SUM(total_price) > 0; -- Lọc những thành phố có doanh thu thực tế sau khi gom nhóm
+    SUM(total_price) > 0; 
     
 -- 1. Phân tích lỗi: Tại sao Database Engine từ chối?
 -- Nguyên nhân cốt lõi nằm ở việc bạn Fresher đã đặt hàm SUM(total_price) > 0 vào mệnh 
