@@ -1,7 +1,5 @@
 CREATE TABLE btvn_ss06;
 USE btvn_ss06;
-
--- Câu truy vấn đúng để lấy giá rẻ nhất của từng khách sạn
 SELECT 
     hotel_id, 
     MIN(price_per_night) AS min_price
