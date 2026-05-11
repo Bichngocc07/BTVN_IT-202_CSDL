@@ -2,16 +2,14 @@ CREATE TABLE btvn_ss06;
 USE btvn_ss06;
 SELECT 
     user_id,
-    COUNT(*) AS total_bookings, -- Tổng số lần đặt phòng
+    COUNT(*) AS total_bookings, 
     SUM(CASE WHEN status = 'CANCELLED' THEN 1 ELSE 0 END) AS total_cancelled
 FROM 
     Bookings
 GROUP BY 
     user_id
 HAVING 
-    -- Tiêu chí 1: Tổng số lần đặt >= 10
     total_bookings >= 10 
-    -- Tiêu chí 2: Số lượng đơn hủy > 5
     AND SUM(CASE WHEN status = 'CANCELLED' THEN 1 ELSE 0 END) > 5;
 -- 1. Thiết kế I/O & Luồng xử lý Logic
 -- Để giải quyết yêu cầu "đếm riêng số đơn Hủy trên cùng một dòng SELECT", chúng ta 
