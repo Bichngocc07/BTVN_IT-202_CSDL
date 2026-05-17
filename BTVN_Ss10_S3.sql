@@ -1,10 +1,7 @@
--- =========================================================================
--- STEP 1: KHỞI TẠO CƠ SỞ DỮ LIỆU VÀ NẠP DỮ LIỆU MẪU (RIKKEI_CLINIC_DB)
--- =========================================================================
+
 CREATE DATABASE IF NOT EXISTS rikkei_clinic_db;
 USE rikkei_clinic_db;
 
--- Dọn dẹp hệ thống: Xóa cấu trúc cũ để tránh lỗi dữ liệu khi bấm chạy lại nhiều lần
 DROP VIEW IF EXISTS department_revenue_view;
 DROP TABLE IF EXISTS vitals_logs;
 DROP TABLE IF EXISTS invoices;
@@ -56,12 +53,6 @@ INSERT INTO invoices (invoice_id, patient_id, amount) VALUES
 (103, 3, 1000000);
 
 
--- =========================================================================
--- PHẦN B: TRIỂN KHAI CODE & KIỂM THỬ THEO YÊU CẦU BÀI TẬP
--- =========================================================================
-
--- 1. Triển khai: Viết mã SQL tạo View mang tên department_revenue_view
--- Giúp ẩn toàn bộ thông tin nhạy cảm của bệnh nhân, chỉ hiển thị dữ liệu tổng hợp
 CREATE VIEW department_revenue_view AS
 SELECT 
     d.department_id,
@@ -79,14 +70,9 @@ GROUP BY
     d.department_name;
 
 
--- 2. Kiểm thử luồng chuẩn: Viết lệnh SELECT truy vấn trên View vừa tạo để hiển thị báo cáo
--- (Kết quả hiện ra dữ liệu tổng hợp của từng khoa cực kỳ gọn gàng và an toàn)
 SELECT * FROM department_revenue_view;
 
 
--- 3. Kiểm thử bẫy dữ liệu: Viết lệnh UPDATE cố tình thay đổi trực tiếp cột total_revenue
--- (Mục đích chứng minh: Hệ thống sẽ tự động CHẶN ĐỨNG và văng lỗi 'is not updatable' 
--- để bảo vệ biến thùng tổng doanh thu không bị sửa đổi tùy tiện)
 UPDATE department_revenue_view
 SET total_revenue = 999999.99
 WHERE department_id = 1;
